@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import {Stage, Layer, Circle, Text, Line, Group} from 'react-konva';
+import {Motion, spring} from 'react-motion';
+import {Stage, Layer, Circle, Text, Tag, Label, Wedge, Group} from 'react-konva';
 import PropTypes from 'prop-types';
 
 /**
@@ -10,50 +11,97 @@ class WheelOfFate extends React.Component {
         const referenceRadius = 200;
         const scale = this.props.radius / referenceRadius;
         const fontSize = 15 * scale;
-        const rotationOffset = 360 / this.props.engineers.length;
+        const angle = 360 / this.props.engineers.length;
+        const orientation = -90;
+        const innerRadius = this.props.radius / 5;
+        const namesOffsetRadius = -this.props.radius / 3.5;
+        const labelHeight = 60;
         const bauRotation = (() => {
             for(let index in this.props.engineers) {
                 const engineer = this.props.engineers[index];
                 if (engineer.id === this.props.bau) {
-                    return -rotationOffset * index;
+                    return (-angle * index) + orientation;
                 }
             }
             return 0;
         })();
 
+        const colors = [
+            '#00c4a6',
+            '#0078c4',
+            '#025e99',
+            '#00446f',
+            '#ff8100',
+            '#ffc100',
+            '#bdde09',
+            '#fa58a8',
+            '#cb0d93',
+            '#9b006d',
+            '#c0adc8',
+            '#a983bc',
+            '#9064a6',
+            '#647aa6',
+            '#495772'
+        ];
+
+        const wheel = this.props.engineers.map((engineer, index) =>
+            <Wedge
+                fill={colors[index % colors.length]}
+                strokeWidth={0}
+                key={engineer.id}
+                radius={this.props.radius}
+                angle={angle}
+                rotation={angle * index + angle / 2}/>
+        );
+
         const names = this.props.engineers.map((engineer, index) =>
             <Text
+                fill='white'
                 key={engineer.id}
                 width={this.props.radius - this.props.radius / 4}
                 fontSize={fontSize}
                 text={engineer.name}
-                rotation={rotationOffset * index}
-                offsetX={-this.props.radius / 4}
+                rotation={angle * index}
+                offsetX={namesOffsetRadius}
                 offsetY={fontSize / 2}/>
-        );
-
-        const lines = this.props.engineers.map((engineer, index) =>
-            <Line
-                key={engineer.id}
-                points={[0, 0, this.props.radius, 0]}
-                rotation={rotationOffset * index + rotationOffset / 2}
-                stroke='black'/>
         );
 
         return (
             <div className="wheel">
-                <Stage width={this.props.radius * 2} height={this.props.radius * 2}>
-                    <Layer
+                <Stage width={this.props.radius * 2} height={this.props.radius * 2 + labelHeight}>
+                    <Motion defaultStyle={{x: 0}} style={{x: spring(bauRotation)}}>
+                        {value => <Layer
                         x={this.props.radius}
-                        y={this.props.radius}
-                        rotation={bauRotation}>
-                        <Group>{names}</Group>
-                        <Group>{lines}</Group>
-                        <Circle
-                            ref="circle"
-                            radius={this.props.radius}
-                            fill="transparent"
-                            stroke="black"/>
+                        y={this.props.radius + labelHeight}
+                        rotation={value.x}>
+                            <Group>{wheel}</Group>
+                            <Group>{names}</Group>
+                            <Circle radius={innerRadius} fill="white"/>
+                    </Layer>}
+                    </Motion>
+                    <Layer
+                        y={labelHeight}
+                        x={this.props.radius}>
+                        <Label>
+                            <Tag
+                                fill='black'
+                                pointerDirection='down'
+                                pointerWidth={30}
+                                pointerHeight={15}
+                                lineJoin='round'
+                                shadowColor='black'
+                                shadowBlur={5}
+                                shadowOpacity={0.5}
+                            />
+                            <Text
+                                text={this.props.label}
+                                fontFamily='Calibri'
+                                fontSize={20}
+                                padding={10}
+                                fill='white'
+                            />
+                        </Label>
+
                     </Layer>
                 </Stage>
             </div>
@@ -64,7 +112,8 @@ class WheelOfFate extends React.Component {
 WheelOfFate.propTypes = {
     radius: PropTypes.number,
     engineers: PropTypes.array.isRequired,
-    bau: PropTypes.number.isRequired
+    bau: PropTypes.number.isRequired,
+    label: PropTypes.string.isRequired,
 };
 
 WheelOfFate.defaultProps = {

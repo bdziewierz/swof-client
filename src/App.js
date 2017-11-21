@@ -50,19 +50,20 @@ class App extends Component {
                     <div className="current-date">BAU for <SingleDatePicker
                         readOnly={true}
                         isOutsideRange={() => {return false}}
-                        displayFormat="dddd, MMM Do, YYYY"
+                        displayFormat="ddd, MMM Do, YYYY"
                         date={this.state.date}
                         onDateChange={this.dateChanged}
                         focused={this.state.focused}
+                        hideKeyboardShortcutsPanel={true}
                         onFocusChange={({ focused }) => this.setState({ focused })}
                     /></div>
                 </header>
                 <div className="wheels-wrapper">
                     <div className="wheel-one wheel-wrapper">
-                        <WheelOfFate engineers={this.state.engineers} bau={this.state.baus[0]} x={200} y={200} radius={150} />
+                        <WheelOfFate engineers={this.state.engineers} bau={this.state.baus[0]} radius={200} label="Morning BAU"/>
                     </div>
                     <div className="wheel-two wheel-wrapper">
-                        <WheelOfFate engineers={this.state.engineers} bau={this.state.baus[1]} x={200} y={200} radius={150} />
+                        <WheelOfFate engineers={this.state.engineers} bau={this.state.baus[1]} radius={200} label="Afternoon BAU"/>
                     </div>
                 </div>
             </div>

@@ -13,10 +13,6 @@
   color: white;
 }
 
-h1, h2, h3, h4, h5 {
-  font-weight: normal;
-}
-
 .App-title {
   font-size: 1.5em;
 }
@@ -27,14 +23,17 @@ h1, h2, h3, h4, h5 {
 
 .DateInput {
   width: auto;
+  background-color: transparent;
 }
 .DateInput input{
-  width: 300px;
+  width: 200px;
+  background-color: transparent;
+  text-align: center;
 }
 
 .wheels-wrapper {
   margin-top: 50px;
-  max-width: 650px;
+  max-width: 850px;
   margin-left: auto;
   margin-right: auto;
 }
