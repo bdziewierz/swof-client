@@ -13,6 +13,8 @@ class App extends Component {
     constructor() {
         super();
         this.dateChanged = this.dateChanged.bind(this);
+        this.nextDate = this.nextDate.bind(this);
+        this.previousDate = this.previousDate.bind(this);
         this.state = {
             datePicker: true,
             date: moment(),
@@ -23,10 +25,9 @@ class App extends Component {
 
     componentWillMount() {
         this.dateChanged(moment());
-            }
+    }
 
     dateChanged(date) {
-        this.calendarToggled();
         fetch(`https://95anp0ckjc.execute-api.eu-west-1.amazonaws.com/dev/baus/` + date.format("YYYY-MM-DD"))
             .then( result => result.json() )
             .then( bauData => this.setState({
@@ -36,10 +37,20 @@ class App extends Component {
             }))
     }
 
-    calendarToggled() {
+    nextDate() {
+        const nextDate = this.state.date.add(1, 'd');
         this.setState({
-            datePickerOpen: !this.state.datePickerOpen
+            date: nextDate
         });
+        this.dateChanged(nextDate);
+    }
+
+    previousDate() {
+        const previousDate = this.state.date.subtract(1, 'd');
+        this.setState({
+            date: previousDate
+        });
+        this.dateChanged(previousDate);
     }
 
     render() {
@@ -47,23 +58,28 @@ class App extends Component {
             <div className="App">
                 <header className="App-header">
                     <h1 className="App-title">Support Wheel of Fate</h1>
-                    <div className="current-date">BAU for <SingleDatePicker
+                    <div className="current-date">
+                        <button onClick={this.previousDate}>&laquo;</button>
+                        <SingleDatePicker
                         readOnly={true}
                         isOutsideRange={() => {return false}}
                         displayFormat="ddd, MMM Do, YYYY"
                         date={this.state.date}
                         onDateChange={this.dateChanged}
                         focused={this.state.focused}
+                        showDefaultInputIcon={true}
                         hideKeyboardShortcutsPanel={true}
                         onFocusChange={({ focused }) => this.setState({ focused })}
-                    /></div>
+                        numberOfMonths={1}/>
+                        <button onClick={this.nextDate}>&raquo;</button>
+                    </div>
                 </header>
                 <div className="wheels-wrapper">
                     <div className="wheel-one wheel-wrapper">
-                        <WheelOfFate engineers={this.state.engineers} bau={this.state.baus[0]} radius={200} label="Morning BAU"/>
+                        <WheelOfFate engineers={this.state.engineers} bau={this.state.baus[0]} radius={150} label="Morning BAU"/>
                     </div>
                     <div className="wheel-two wheel-wrapper">
-                        <WheelOfFate engineers={this.state.engineers} bau={this.state.baus[1]} radius={200} label="Afternoon BAU"/>
+                        <WheelOfFate engineers={this.state.engineers} bau={this.state.baus[1]} radius={150} label="Afternoon BAU"/>
                     </div>
                 </div>
             </div>

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 /**
  * WheelOfFate component
  */
-class WheelOfFate extends React.Component {
+class WheelOfFate extends Component {
     render() {
         const referenceRadius = 200;
         const scale = this.props.radius / referenceRadius;
@@ -112,7 +112,7 @@ class WheelOfFate extends React.Component {
 WheelOfFate.propTypes = {
     radius: PropTypes.number,
     engineers: PropTypes.array.isRequired,
-    bau: PropTypes.number.isRequired,
+    bau: PropTypes.number,
     label: PropTypes.string.isRequired,
 };
 
