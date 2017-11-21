@@ -13,12 +13,42 @@
   color: white;
 }
 
+h1, h2, h3, h4, h5 {
+  font-weight: normal;
+}
+
 .App-title {
   font-size: 1.5em;
 }
 
 .App-intro {
   font-size: large;
+}
+
+.DateInput {
+  width: auto;
+}
+.DateInput input{
+  width: 300px;
+}
+
+.wheels-wrapper {
+  margin-top: 50px;
+  max-width: 650px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wheel-wrapper {
+  text-align: center;
+  width: 50%;
+  float: left;
+}
+
+.wheel-wrapper .wheel {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 @keyframes App-logo-spin {

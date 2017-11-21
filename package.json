@@ -3,9 +3,15 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "konva": "^1.7.6",
     "moment": "^2.19.2",
     "react": "^16.1.1",
+    "react-addons-css-transition-group": "^15.6.2",
+    "react-addons-shallow-compare": "^15.6.2",
+    "react-dates": "^15.1.0",
     "react-dom": "^16.1.1",
+    "react-infinite-calendar": "^2.3.1",
+    "react-konva": "^1.6.3",
     "react-moment": "^0.6.8",
     "react-scripts": "1.0.17"
   },
