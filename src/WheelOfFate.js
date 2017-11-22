@@ -100,7 +100,6 @@ class WheelOfFate extends Component {
                             />
                             <Text
                                 text={this.props.label}
-                                fontFamily='Calibri'
                                 fontSize={20}
                                 padding={10}
                                 fill='white'
