@@ -51,7 +51,8 @@ class WheelOfFate extends Component {
                 key={engineer.id}
                 radius={this.props.radius}
                 angle={oneItemAngle}
-                rotation={oneItemAngle * index + oneItemAngle / 2}/>
+                rotation={oneItemAngle * index + oneItemAngle / 2}
+                preventDefault={false}/>
         );
 
         const names = this.props.engineers.map((engineer, index) =>
@@ -63,7 +64,8 @@ class WheelOfFate extends Component {
                 text={engineer.name}
                 rotation={oneItemAngle * index}
                 offsetX={namesOffsetRadius}
-                offsetY={fontSize / 2}/>
+                offsetY={fontSize / 2}
+                preventDefault={false}/>
         );
 
         return (
@@ -81,8 +83,10 @@ class WheelOfFate extends Component {
                     </Motion>
                     <Layer
                         y={labelHeight + 8}
-                        x={this.props.radius}>
-                        <Label>
+                        x={this.props.radius}
+                        preventDefault={false}>
+                        <Label
+                            preventDefault={false}>
                             <Tag
                                 fill='black'
                                 pointerDirection='down'
@@ -92,6 +96,7 @@ class WheelOfFate extends Component {
                                 shadowColor='black'
                                 shadowBlur={5}
                                 shadowOpacity={0.5}
+                                preventDefault={false}
                             />
                             <Text
                                 text={this.props.label}
@@ -99,6 +104,7 @@ class WheelOfFate extends Component {
                                 fontSize={20}
                                 padding={10}
                                 fill='white'
+                                preventDefault={false}
                             />
                         </Label>
 
