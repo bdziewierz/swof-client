@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import 'react-dates/initialize';
 import {SingleDatePicker} from 'react-dates';
-import moment from 'moment';
 import WheelOfFate from './WheelOfFate'
+
 import 'react-dates/lib/css/_datepicker.css';
 import './App.css';
 
@@ -27,6 +28,9 @@ class App extends Component {
         this.dateChanged(moment());
     }
 
+    /**
+     *  Handles change of the date
+     */
     dateChanged(date) {
         fetch(`https://95anp0ckjc.execute-api.eu-west-1.amazonaws.com/dev/baus/` + date.format("YYYY-MM-DD"))
             .then( result => result.json() )
@@ -37,6 +41,9 @@ class App extends Component {
             }))
     }
 
+    /**
+     * Sets current date to next
+     */
     nextDate() {
         const nextDate = this.state.date.add(1, 'd');
         this.setState({
@@ -45,6 +52,9 @@ class App extends Component {
         this.dateChanged(nextDate);
     }
 
+    /**
+     * Sets current date to previous
+     */
     previousDate() {
         const previousDate = this.state.date.subtract(1, 'd');
         this.setState({

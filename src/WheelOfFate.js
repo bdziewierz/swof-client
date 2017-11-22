@@ -10,8 +10,8 @@ class WheelOfFate extends Component {
     render() {
         const referenceRadius = 200;
         const scale = this.props.radius / referenceRadius;
-        const fontSize = 15 * scale;
-        const angle = 360 / this.props.engineers.length;
+        const fontSize = 17 * scale;
+        const oneItemAngle = 360 / this.props.engineers.length;
         const orientation = -90;
         const innerRadius = this.props.radius / 5;
         const namesOffsetRadius = -this.props.radius / 3.5;
@@ -20,7 +20,7 @@ class WheelOfFate extends Component {
             for(let index in this.props.engineers) {
                 const engineer = this.props.engineers[index];
                 if (engineer.id === this.props.bau) {
-                    return (-angle * index) + orientation;
+                    return (-oneItemAngle * index) + orientation;
                 }
             }
             return 0;
@@ -50,8 +50,8 @@ class WheelOfFate extends Component {
                 strokeWidth={0}
                 key={engineer.id}
                 radius={this.props.radius}
-                angle={angle}
-                rotation={angle * index + angle / 2}/>
+                angle={oneItemAngle}
+                rotation={oneItemAngle * index + oneItemAngle / 2}/>
         );
 
         const names = this.props.engineers.map((engineer, index) =>
@@ -61,7 +61,7 @@ class WheelOfFate extends Component {
                 width={this.props.radius - this.props.radius / 4}
                 fontSize={fontSize}
                 text={engineer.name}
-                rotation={angle * index}
+                rotation={oneItemAngle * index}
                 offsetX={namesOffsetRadius}
                 offsetY={fontSize / 2}/>
         );
@@ -80,7 +80,7 @@ class WheelOfFate extends Component {
                     </Layer>}
                     </Motion>
                     <Layer
-                        y={labelHeight}
+                        y={labelHeight + 8}
                         x={this.props.radius}>
                         <Label>
                             <Tag
