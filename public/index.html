@@ -29,6 +29,14 @@
       You need to enable JavaScript to run this app.
     </noscript>
     <div id="root"></div>
+    <div id="footer">
+      <p>At one of our companies, all engineers take it in turns to support the business for half a day at a time. This is affectionately known as BAU. Currently, there is no tool which decides who is doing BAU and when, all rotas are created and maintained by hand. This app selects two engineers at random to both complete a half day of support each. For the purposes of this system, we assume that we have 10 engineers. For simplicity we also assume 7 days work week (no free weekends).</p>
+      <p><strong>Use the date picker on the top to select the day you want to see the BAU for.</strong></p>
+      <p>This project utilises ReactJS for the client app and Express.js with Serverless Framework driving the API. AWS Lambda provides compute resources for API. AWS DynamoDB stores the list of our engineers. S3 hosts the static resources. The code for both the client and the API is open sourced and available on GitHub.</p>
+      <ul>
+        <li><a href="https://github.com/bdziewierz/swof-client">Client app GitHub page</a></li>
+        <li><a href="https://github.com/bdziewierz/swof-api">API GitHub page</a></li>
+      </ul></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
